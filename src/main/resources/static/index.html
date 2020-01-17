@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>IoT-智能人居开放平台-SaaS Demo</title>
+  <script src="http://g.alicdn.com/aliyun/aliyun-common/0.0.7/js/jquery.min.js"></script>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      list-style-type: none;
+      box-sizing: border-box;
+    }
+    html, body{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .wrap{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+    }
+    .menu_left{
+      width: 220px;
+      height: 100%;
+      background: #2c2f33;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu_left ul{
+      flex-shrink: 0;
+    }
+    .nav{
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      box-sizing: border-box;
+      color: #fff;
+      font-weight: 300;
+      font-size: 14px;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+    .nav:hover{
+      background: #42485B;
+    }
+    #bundle{
+      width: 100%;
+      height:100%;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="/app.css">
+  <script src='http://f.alicdn.com/babel-polyfill/6.16.0/polyfill.min.js' nonce="4D67zumlbuFO8pZM"></script>
+</head>
+<body>
+  <div class='wrap'>
+    <div class="menu_left">
+      <ul class='menu'>
+        <li key='/scene/list' class='nav'>场景管理</li>
+        <li key='/device/list' class='nav'>设备管理</li>
+        <li key='/space/list' class='nav'>空间管理</li>
+        <li key='/user/list' class='nav'>用户管理</li>
+        <li key='/category' class='nav'>品类管理</li>
+        <li key='/edgeGateway/list' class='nav'>边缘网关</li>
+        <li key='/thelog' class='nav'>日志</li>
+      </ul>
+      <ul>
+        <li class='config nav'>人居控制台</li>
+        <li class='doc nav'>人居文档</li>
+      </ul>
+    </div>
+    <div id="bundle"></div>
+  </div>
+  <script src="http://g.alicdn.com/bone/loader/1.0.0/index.js" global-name="loader"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/~react@16.js?t=1566891569966.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/~react-router@4.js?t=1566891569967.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/history@4.js?t=1566891569967.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/redux@3.js?t=1566891569968.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/react-redux@5.js?t=1566891569968.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/bone-web-ui@1.js?t=1566891569969.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="http://g-assets.daily.taobao.net/bone/libs/1.0.1/bone-web@0.2.js?t=1566891569969.js" nonce="4D67zumlbuFO8pZM"></script>
+  <script src="/common.js"></script>
+  <script src="/app.js"></script>
+  <script>
+    loader("/app.js").start({
+      container: "bundle"
+    });
+    if (window.location.pathname === '/') {
+      window.location.href = '/scene/list';
+    };
+    const path = window.location.pathname;
+    if (path === '/' || path === '/scene/list' || path === '/scene/setting' || path === '/scene/detail') {
+      $('.menu .nav:nth-child(1)').css({"background-color":"#0FC18A"});
+    } else if (path === '/device/list' || path === '/device/detail') {
+      $('.menu .nav:nth-child(2)').css({"background-color":"#0FC18A"});
+    } else if (path === '/space/list' || path === '/space/detail') {
+      $('.menu .nav:nth-child(3)').css({"background-color":"#0FC18A"});
+    } else if (path === '/user/list' || path === '/user/detail') {
+      $('.menu .nav:nth-child(4)').css({"background-color":"#0FC18A"});
+    } else if (path === '/category') {
+      $('.menu .nav:nth-child(5)').css({"background-color":"#0FC18A"});
+    } else if (path === '/edgeGateway/list' || path === '/edgeGateway/detail') {
+      $('.menu .nav:nth-child(6)').css({"background-color":"#0FC18A"});
+    } else if (path === '/thelog') {
+      $('.menu .nav:nth-child(7)').css({"background-color":"#0FC18A"});
+    };
+    $('.menu .nav').on('click', (e) => {
+      window.location.href = $(e.target).attr('key');
+    });
+    $('.config').on('click', (e) => {
+      window.open("https://homelink.iot.aliyun.com");
+    });
+    $('.doc').on('click', (e) => {
+      window.open("https://homelink.iot.aliyun.com/doc#index.html");
+    });
+  </script>
+</body>
+</html>

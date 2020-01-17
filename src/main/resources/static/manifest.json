@@ -1,0 +1,64 @@
+{
+  "runtime": {
+    "bone-web": {
+      "js": [
+        "common.js",
+        "app.js"
+      ],
+      "css": [
+        "app.css"
+      ],
+      "statics": []
+    }
+  },
+  "build": {
+    "cli": "@bone/roadhog",
+    "@bone/roadhog-version": "1.2.21",
+    "createTime": 1579250798886
+  },
+  "routes": [
+    {
+      "path": "/",
+      "isHome": true
+    },
+    {
+      "path": "/scene/list"
+    },
+    {
+      "path": "/scene/setting"
+    },
+    {
+      "path": "/scene/detail"
+    },
+    {
+      "path": "/device/list"
+    },
+    {
+      "path": "/device/detail"
+    },
+    {
+      "path": "/space/list"
+    },
+    {
+      "path": "/space/detail"
+    },
+    {
+      "path": "/user/list"
+    },
+    {
+      "path": "/user/detail"
+    },
+    {
+      "path": "/category"
+    },
+    {
+      "path": "/edgeGateway/list"
+    },
+    {
+      "path": "/edgeGateway/detail"
+    },
+    {
+      "path": "/thelog"
+    }
+  ]
+}
