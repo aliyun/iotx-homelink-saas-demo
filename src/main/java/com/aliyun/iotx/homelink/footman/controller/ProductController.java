@@ -6,9 +6,13 @@ import com.aliyun.iotx.api.sdk.business.homelink.dto.device.CategoryDTO;
 import com.aliyun.iotx.api.sdk.business.homelink.dto.product.ProductDTO;
 import com.aliyun.iotx.api.sdk.dto.PageDTO;
 import com.aliyun.iotx.homelink.footman.dto.ResponseDTO;
+import com.google.common.collect.Lists;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
+
 
 
 @RestController
@@ -61,12 +65,35 @@ public class ProductController extends BaseController {
         try {
             String categoryName = request.getString("categoryName");
             Long superId = request.getLong("superId");
-            Integer pageNo = request.getInteger("pageNo");
+            //Integer pageNo = request.getInteger("pageNo");
             Integer pageSize = request.getInteger("pageSize");
 
-            PageDTO<CategoryDTO> data = ProductApi
-                .queryCategories(operator, categoryName, superId, pageNo, pageSize).executeAndGet();
-            response.setData(data);
+            int pageNo = 1;
+
+            List<CategoryDTO> all = Lists.newLinkedList();
+            while (true) {
+                PageDTO<CategoryDTO> page = ProductApi
+                    .queryCategories(operator, categoryName, superId, pageNo, pageSize).executeAndGet();
+
+                List<CategoryDTO> data = page.getData();
+                if (CollectionUtils.isEmpty(data)) {
+                    break;
+                }
+                all.addAll(data);
+
+                if (all.size() >= page.getTotal()) {
+                    break;
+                }
+                pageNo++;
+            }
+
+            PageDTO<CategoryDTO> result = new PageDTO<>();
+            result.setData(all);
+            result.setPageNo(1);
+            result.setPageSize(all.size());
+            result.setTotal(all.size());
+
+            response.setData(result);
         } catch (Exception e) {
             response.markError(e.getMessage());
         }
